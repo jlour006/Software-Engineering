@@ -19,7 +19,7 @@ dishRouter.route('/')
     });
 })
 
-.post(Verify.verifyOrdinaryUser,Verify.verifyAdmin, function (req, res, next) {
+.post(Ver   ify.verifyOrdinaryUser,Verify.verifyAdmin, function (req, res, next) {
     Dishes.create(req.body, function (err, dish) {
         if (err) next(err);
         console.log('Dish created!');
@@ -152,5 +152,71 @@ dishRouter.route('/:dishId/comments')
             });
         });
     });
+
+
+    .search(Verify.verifyOrdinaryUser, function searchfortable ((inputDate, time, guestnum, section), defaultdates ){
+        var dates = {
+            var d = inputDate; 
+        convert:function(d) {
+                
+            return (
+                d.constructor === Date ? d :
+                d.constructor === Array ? new Date(d[0],d[1],d[2]) :
+                d.constructor === Number ? new Date(d) :
+                d.constructor === String ? new Date(d) :
+                typeof d === "object" ? new Date(d.year,d.month,d.date) :
+                NaN
+            );
+        },
+
+        inRange:function(d,start,end) {
+            // Checks if date in d is between dates in start and end.
+            // Returns a boolean or NaN:
+            //    true  : if d is between start and end (inclusive)
+            //    false : if d is before start or after end
+            //    NaN   : if one or more of the dates is illegal.
+            // NOTE: The code inside isFinite does an assignment (=).
+            return (
+                 isFinite(d=this.convert(d).valueOf()) &&
+                 isFinite(start=this.convert(start).valueOf()) &&
+                 isFinite(end=this.convert(end).valueOf()) ?
+                 start <= d && d <= end :
+                 NaN
+             );
+        }
+      }
+        if (inRange(d,start,end)== true){
+            var timeary = new Array (5, 6, 7, 8, 9, 10);
+            if (time in timeary){
+                if (guestnum > 0 && guestnum < 7){
+                    var sectionid;
+                    if (section = "indoor"){
+                        sectionid = 0;
+                        //Sudo code for calling the search method in the mongodb
+                        //call search db for table (d, time, guestnum, sectionid)
+                            //sudo code that goes inside the mongodb shit
+                            //for (all elements in table where tabledate ==d && tabletime == time && tablesection ==sectionid) 
+                            //  if reservedbit == true
+                            //    check next element
+                            //  else
+                             //  return table id*
+                        //ask user if they want to reserve
+                        // if input == "yes"
+                            // where table id* == table id
+                        //    reserve bit  = false
+                        // 
+                        //else exit
+                      
+                    }
+                    else sectionid =1;
+                }
+            }
+
+        }
+    }
+
+// cnacel reservation 
+// user will need to have their table number saved for the table that thay reserved
+//
 
     module.exports = dishRouter;
